@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<businessObjectModel xmlns="http://documentation.bonitasoft.com/bdm-xml-schema/1.0" modelVersion="1.0">
+    <businessObjects>
+        <businessObject qualifiedName="com.gardensnolife.model.Collaborateur">
+            <fields>
+                <field type="LONG" length="255" name="id" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="nom" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="email" nullable="true" collection="false"/>
+                <field type="INTEGER" length="255" name="joursRestants" nullable="true" collection="false"/>
+                <field type="DOUBLE" length="255" name="quotaCO2Restant" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.gardensnolife.model.DemandeMission">
+            <fields>
+                <field type="LONG" length="255" name="id" nullable="false" collection="false"/>
+                <field type="STRING" length="255" name="collaborateur" nullable="false" collection="false"/>
+                <field type="STRING" length="255" name="destination" nullable="false" collection="false"/>
+                <field type="OFFSETDATETIME" length="255" name="dateDebut" nullable="true" collection="false"/>
+                <field type="OFFSETDATETIME" length="255" name="dateFin" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="motif" nullable="true" collection="false"/>
+                <field type="DOUBLE" length="255" name="avanceFrais" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="decisionManager" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="decisionRH" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="statut" nullable="true" collection="false"/>
+                <field type="OFFSETDATETIME" length="255" name="dateCreation" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
+            <indexes/>
+        </businessObject>
+    </businessObjects>
+</businessObjectModel>
