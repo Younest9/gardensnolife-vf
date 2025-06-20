@@ -411,6 +411,13 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_8GOPoU3IEfCqgcqrg4_E4Q" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_8GOPoE3IEfCqgcqrg4_E4Q" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_8GOPok3IEfCqgcqrg4_E4Q" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_or9AkE3OEfCqgcqrg4_E4Q">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_or9AkU3OEfCqgcqrg4_E4Q" name="localCurrency" content="localCurrency" type="TYPE_VARIABLE">
+              <referencedElements xmi:type="process:Data" xmi:id="_phKKQE3OEfCqgcqrg4_E4Q" name="localCurrency" dataType="_jSt7VE3IEfCqgcqrg4_E4Q"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_or9Akk3OEfCqgcqrg4_E4Q" name="getLocalCurrencyFromDestination(demandeMission[0].destination)" content="getLocalCurrencyFromDestination(demandeMission[0].destination)"/>
+            <operator xmi:type="expression:Operator" xmi:id="_or9Ak03OEfCqgcqrg4_E4Q" type="ASSIGNMENT"/>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_8GOPo03IEfCqgcqrg4_E4Q" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_8GOPpE3IEfCqgcqrg4_E4Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_8GOPpU3IEfCqgcqrg4_E4Q" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -458,6 +465,33 @@
       </data>
       <data xmi:type="process:Data" xmi:id="_Lk1n0E3LEfCqgcqrg4_E4Q" name="decisionCollaborateur" dataType="_jSt7T03IEfCqgcqrg4_E4Q">
         <defaultValue xmi:type="expression:Expression" xmi:id="_Lk1n0U3LEfCqgcqrg4_E4Q" content="" returnType="java.lang.Boolean"/>
+      </data>
+      <data xmi:type="process:Data" xmi:id="_J-YVcE3NEfCqgcqrg4_E4Q" name="apiKey" dataType="_jSt7VE3IEfCqgcqrg4_E4Q">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_J-YVcU3NEfCqgcqrg4_E4Q" name="662cd6da9c22ed97552cf932" content="662cd6da9c22ed97552cf932"/>
+      </data>
+      <data xmi:type="process:Data" xmi:id="_MSoQAE3NEfCqgcqrg4_E4Q" name="baseApiUrl" dataType="_jSt7VE3IEfCqgcqrg4_E4Q">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_MSoQAU3NEfCqgcqrg4_E4Q" name="https://v6.exchangerate-api.com/v6" content="https://v6.exchangerate-api.com/v6"/>
+      </data>
+      <data xmi:type="process:Data" xmi:id="_N129UE3NEfCqgcqrg4_E4Q" name="baseCurrency" dataType="_jSt7VE3IEfCqgcqrg4_E4Q">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_N129UU3NEfCqgcqrg4_E4Q" name="EUR" content="EUR"/>
+      </data>
+      <data xmi:type="process:JavaObjectData" xmi:id="_Q74TEE3NEfCqgcqrg4_E4Q" name="exchangeRateData" dataType="_jSt7VU3IEfCqgcqrg4_E4Q" className="java.util.List">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_Q74TEU3NEfCqgcqrg4_E4Q" content="" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List"/>
+      </data>
+      <data xmi:type="process:JavaObjectData" xmi:id="_SQ4XIE3NEfCqgcqrg4_E4Q" name="conversionResult" dataType="_jSt7VU3IEfCqgcqrg4_E4Q" className="java.util.List">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_SQ4XIU3NEfCqgcqrg4_E4Q" content="" returnType="java.util.List"/>
+      </data>
+      <data xmi:type="process:Data" xmi:id="_UZd0QE3NEfCqgcqrg4_E4Q" name="destinationCountry" dataType="_jSt7VE3IEfCqgcqrg4_E4Q">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_UZd0QU3NEfCqgcqrg4_E4Q" content=""/>
+      </data>
+      <data xmi:type="process:Data" xmi:id="_VJjNYE3NEfCqgcqrg4_E4Q" name="localCurrency" dataType="_jSt7VE3IEfCqgcqrg4_E4Q">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_VJjNYU3NEfCqgcqrg4_E4Q" content=""/>
+      </data>
+      <data xmi:type="process:Data" xmi:id="_khvC4E3OEfCqgcqrg4_E4Q" name="tauxChangeActuel" dataType="_jSt7U03IEfCqgcqrg4_E4Q">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_khvC4U3OEfCqgcqrg4_E4Q" content="" returnType="java.lang.Double"/>
+      </data>
+      <data xmi:type="process:Data" xmi:id="_lsatUE3OEfCqgcqrg4_E4Q" name="montantCalcule" dataType="_jSt7U03IEfCqgcqrg4_E4Q">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_lsatUU3OEfCqgcqrg4_E4Q" content="" returnType="java.lang.Double"/>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_jSt64U3IEfCqgcqrg4_E4Q" type="NONE">
         <targetForm xmi:type="expression:Expression" xmi:id="_jSt64k3IEfCqgcqrg4_E4Q" name="SaisirDemandeMission" content="da6ff340-b905-49dc-81dc-b24151072c1e" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
