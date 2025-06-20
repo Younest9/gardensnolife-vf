@@ -8,7 +8,7 @@
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_Wod6hU1hEfCcZ9y8bwMp1w" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_Wod6hk1hEfCcZ9y8bwMp1w" name="" content="" returnTypeFixed="true"/>
         </elements>
-        <elements xmi:type="process:Task" xmi:id="_Wod6h01hEfCcZ9y8bwMp1w" name="Saisir demande de mission + Avance frais en Euros" outgoing="_Wod7Dk1hEfCcZ9y8bwMp1w" incoming="_Wod7C01hEfCcZ9y8bwMp1w" overrideActorsOfTheLane="false">
+        <elements xmi:type="process:Task" xmi:id="_Wod6h01hEfCcZ9y8bwMp1w" name="Saisir demande de mission" outgoing="_Wod7Dk1hEfCcZ9y8bwMp1w" incoming="_Wod7C01hEfCcZ9y8bwMp1w" overrideActorsOfTheLane="false">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_Wod6iE1hEfCcZ9y8bwMp1w" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_Wod6iU1hEfCcZ9y8bwMp1w" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_Wod6ik1hEfCcZ9y8bwMp1w" name="" content="" returnTypeFixed="true"/>
@@ -165,6 +165,18 @@
           <stepSummary xmi:type="expression:Expression" xmi:id="_H_1LQk1jEfCcZ9y8bwMp1w" name="" content="" returnTypeFixed="true"/>
         </elements>
       </elements>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_YtXlUE3AEfCqgcqrg4_E4Q" name="demandeMission" dataType="_Wod7Zk1hEfCcZ9y8bwMp1w" className="com.gardensnolife.model.DemandeMission">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_YtYMYE3AEfCqgcqrg4_E4Q" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
+      </data>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_P4ey0E3BEfCqgcqrg4_E4Q" name="collaborateur" dataType="_Wod7Zk1hEfCcZ9y8bwMp1w" className="com.gardensnolife.model.Collaborateur">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_P4ey0U3BEfCqgcqrg4_E4Q" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
+      </data>
+      <data xmi:type="process:Data" xmi:id="_aoLPsE3BEfCqgcqrg4_E4Q" name="decisionRH" dataType="_Wod7Xk1hEfCcZ9y8bwMp1w">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_aoLPsU3BEfCqgcqrg4_E4Q" content="" returnType="java.lang.Boolean"/>
+      </data>
+      <data xmi:type="process:Data" xmi:id="_cIWpAE3BEfCqgcqrg4_E4Q" name="desisionManager" dataType="_Wod7Xk1hEfCcZ9y8bwMp1w">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_cIWpAU3BEfCqgcqrg4_E4Q" content="" returnType="java.lang.Boolean"/>
+      </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_Wod7B01hEfCcZ9y8bwMp1w">
         <targetForm xmi:type="expression:Expression" xmi:id="_Wod7CE1hEfCcZ9y8bwMp1w" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
@@ -419,7 +431,7 @@
               <children xmi:type="notation:DecorationNode" xmi:id="_H_1LRU1jEfCcZ9y8bwMp1w" type="5025">
                 <layoutConstraint xmi:type="notation:Location" xmi:id="_H_1LRk1jEfCcZ9y8bwMp1w" y="5"/>
               </children>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_H_1LRE1jEfCcZ9y8bwMp1w" x="1903" y="81"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_H_1LRE1jEfCcZ9y8bwMp1w" x="1942" y="132"/>
             </children>
           </children>
           <styles xmi:type="notation:DescriptionStyle" xmi:id="_Woeh4E1hEfCcZ9y8bwMp1w"/>
@@ -537,7 +549,7 @@
         <layoutConstraint xmi:type="notation:Location" xmi:id="_WoeiM01hEfCcZ9y8bwMp1w" y="-10"/>
       </children>
       <styles xmi:type="notation:FontStyle" xmi:id="_WoeiNE1hEfCcZ9y8bwMp1w" fontName="Segoe UI"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_WoeiNU1hEfCcZ9y8bwMp1w" points="[-5, -20, 50, 220]$[-55, -246, 0, -6]"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_WoeiNU1hEfCcZ9y8bwMp1w" points="[-84, -27, -115, 295]$[-84, -308, -115, 14]$[10, -308, -21, 14]"/>
       <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_WoeiNk1hEfCcZ9y8bwMp1w" id="(1.0,0.29347826086956524)"/>
       <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_WoeiN01hEfCcZ9y8bwMp1w" id="(0.4883720930232558,0.16279069767441862)"/>
     </edges>
