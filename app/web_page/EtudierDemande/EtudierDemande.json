@@ -4,7 +4,7 @@
   "type" : "form",
   "uuid" : "5e7fe357-b84d-4080-a04c-efb0a761538c",
   "modelVersion" : "2.6",
-  "lastUpdate" : 1750366621017,
+  "lastUpdate" : 1750373552624,
   "description" : "Page generated with Bonita UI designer",
   "rows" : [
     [
@@ -128,6 +128,214 @@
             "type" : "constant",
             "value" : false
           },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "Collaborateur: {{demandeMission.collaborateur}}"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "aaea057f-b784-4ce2-a67e-b2b57771b940",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "Destination: {{demandeMission.destination}}"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "f5084daf-4174-4e95-bf5e-357002ababad",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "Motif: {{demandeMission.motif}}"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "62435820-61b6-4065-8194-bc5670d19891",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "Dates: du {{demandeMission.dateDebut | date}} au {{demandeMission.dateFin | date}}"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "49c3701a-4c9a-4d1d-a104-8337d7d87ab6",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
           "disabled" : {
             "type" : "constant",
             "value" : false
@@ -146,7 +354,7 @@
           },
           "label" : {
             "type" : "interpolation",
-            "value" : "Accepter / Refuser"
+            "value" : "Décision"
           },
           "labelPosition" : {
             "type" : "constant",
@@ -163,18 +371,21 @@
           "availableValues" : {
             "type" : "constant",
             "value" : [
-              "yes",
-              "no"
+              "Accepter",
+              "Refuser"
             ]
           },
           "displayedKey" : {
-            "type" : "constant"
+            "type" : "constant",
+            "value" : "true, false"
           },
           "returnedKey" : {
-            "type" : "constant"
+            "type" : "constant",
+            "value" : "true, false"
           },
           "selectedValue" : {
-            "type" : "variable"
+            "type" : "variable",
+            "value" : "formInput.decision"
           }
         },
         "reference" : "e6022515-59c3-4f9c-9119-a4f54d2a9740",
@@ -229,7 +440,7 @@
                   },
                   "label" : {
                     "type" : "interpolation",
-                    "value" : "Submit"
+                    "value" : "Valider la décision"
                   },
                   "dataToSend" : {
                     "type" : "expression",
@@ -275,6 +486,27 @@
                   "dimension" : {
                     "type" : "constant",
                     "value" : 12
+                  },
+                  "assign" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "url" : {
+                    "type" : "interpolation"
+                  },
+                  "responseStatusCode" : {
+                    "type" : "variable"
+                  },
+                  "dataFromSuccess" : {
+                    "type" : "variable"
+                  },
+                  "closeOnSuccess" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "modalId" : {
+                    "type" : "constant",
+                    "value" : ""
                   }
                 },
                 "reference" : "07781285-403d-4d27-895d-2745c8992b74",
@@ -367,7 +599,7 @@
       "type" : "expression",
       "value" : [
         "return {",
-        "",
+        "   decision: $data.formInput.decision === \"Accepter\"",
         "}"
       ],
       "exposed" : false
@@ -383,6 +615,26 @@
       "type" : "urlparameter",
       "value" : [
         "id"
+      ],
+      "exposed" : false
+    },
+    "formInput" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "  \"decision\": null",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "demandeMission" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.context && $data.context.demandeMission && $data.context.demandeMission.length > 0) {",
+        "  return $data.context.demandeMission[0];",
+        "} else {",
+        "  return null;",
+        "}"
       ],
       "exposed" : false
     }

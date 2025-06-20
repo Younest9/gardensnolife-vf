@@ -1,0 +1,56 @@
+Projet Mission
+Vous êtes embauché(e) dans l'entreprise GardensNoLife spécialisée dans la conception et la réalisation de jardins à la carte. GardensNoLife est une entreprise située à Toulouse avec des clients exigeants situées en Occitanie bien sûr mais aussi dans le monde entier !
+Lors d'une réunion récente avec l'équipe de gestion, le responsable des ressources humaines de l'entreprise a exprimé les besoins suivants pour un nouveau système de demande d'ordre de mission qui devrait automatiser plusieurs processus de l'entreprise. Celle-ci dispose d'un certain nombre de collaborateurs partant en mission dans le monde entier et... tout est géré par un tableur, avec des envois de mails... voire même avec des papiers disséminés un peu partout !
+Voici André Le Jardinier, votre contact métier :
+Bonjour,
+Heureusement, vous êtes là !
+Nos collaborateurs peuvent être missionnés dans le monde entier en fonction de leur contacts clients. Nous avons vraiment besoin de rationaliser notre processus actuel de demandes d'ordre de missions. Actuellement, tout est géré manuellement, ce qui prend beaucoup de temps et est sujet à des erreurs. Je veux un système où nos employés peuvent facilement soumettre leurs demandes de mission directement depuis leurs postes de travail ou même en déplacement. 
+Nous envisageons d'utiliser Bonita pour développer et déployer ce processus, étant donné que la plateforme offre de bonnes capacités d'automatisation, de gestion de formulaires et d'intégration système. Ce que je cherche ici, c'est de concevoir un processus qui non seulement simplifie la soumission et l'approbation des demandes de mission, mais qui soit aussi intégré à notre système de gestion RH pour les suivis de solde de mission, d'impact CO2 et les notifications.
+André Le Jardinier
+
+v1 - Automatisation des demandes
+Il est crucial que ce nouveau système nous permette de voir immédiatement les informations pertinentes pour aider le gestionnaire à prendre une décision éclairée. Tout cela devrait réduire considérablement notre charge de travail administratif et améliorer l'expérience de nos employés.
+Dans les faits, un collaborateur doit remplir une demande de mission. Celle-ci est soumise à son manager pour étude. La manager peut dès lors confirmer la mission ou au contraire l'infirmer. Dans tous les cas, le service RH sera sollicité pour une analyse d'opportunité. A son tour, le service RH, après analyse peut confirmer ou infirmer. Il nous arrive parfois que manager et service RH ne soient pas d'accords. Auquel cas, le manager a le dernier mot et le service RH sera informé de cette décision. A la fin de ce processus, le collaborateur est informé.
+En dernier lieu, je voudrais qu'un collaborateur puisse à tout instant suivre l'ensemble de ses demandes. Idem pour le service RH mais pour l'ensemble des demandes de l'ensemble du personnel.
+André Le Jardinier
+v2 - OnBoarding et contraintes administratives
+Toujours dans notre objectif d'automatisation; il faut que je vous indique que nos collaborateurs sont soumis à des règles administratives pour leur missions. Notamment, qu'ils disposent de 25 jours de mission par an au maximum. Toute mission effectuée vient en déduction de ce plafond. Dans le cas où un collaborateur n'aurait pas assez de jours restants, la mission sera soumise au service RH avant tout qui décidera si la demande est recevable ou non. Le reste du processus de demande est inchangé.
+Quitte à parler d'automatisation, je ne voudrais pas que cette contrainte nous oblige à ré-utiliser du papier. On peut imaginer que chaque collaborateur dispose d'un processus particulier pour cela. A la rigueur demander au RH de cliquer sur un bouton pour préparer. A vous de voir ce qui est le mieux.
+André Le Jardinier
+v3 - Gestion des défraiements
+De plus, chaque collaborateur pour subsister en mission peut demander une avance de frais en numéraire. Il doit le mentionner dans sa demande. Le service RH, de son côté, peut librement modifier cette demande. Cela implique que le collaborateur n'est plus seulement notifié à la fin de la demande. Il a le choix de confirmer la mission ou de la refuser. Si la mission est finalement acceptée par le collaborateur, la demande est réputée acceptée par l'ensemble des parties. Si la demande est refusée, elle est considérée comme caduque et donc annulée.
+N'oubliez pas que nos collaborateurs peuvent se déplacer dans le monde entier ! Si la demande est faite en euros pour que chaque acteur ait une vision plus simple; le montant versé en numéraire est lui en monnaie locale ! Il nous faut le savoir, ainsi que le taux de change du jour.
+Tant que nous y sommes, je voudrai qu'on collaborateur puisse annuler à toute moment sa demande !
+André Le Jardinier
+v4 - Empreinte carbone
+Également, dans le cadre de nos efforts de sobriété énergétique et afin d'encourager les échanges en visio lorsque cela est possible, nous avons mis en place des quota CO2 annuels par collaborateur. Chaque collaborateur dispose d'un quota de 1 tonne eq CO2 annuel. La somme des missions dans l'année doit donc tenir dans ce quota, sinon, la mission devra être automatiquement refusée.
+Nos règles métier actuelles, bien qu'imparfaites, résument la consommation carbone en fonction de la distance et du moyen de locomotion. Ces règles stipulent que tout trajet dont la distance entre notre siège et la destination est inférieure à 200 Km s'effectue avec un véhicule électrique. Si la distance est supérieure à 700 Km, le trajet s'effectuera en avion. Le reste s'effectuera en train.
+Vous êtes libres d'améliorer ce système mais nous n'avons pas les moyens financiers de payer un service externe à notre société pour cela.
+André Le Jardinier
+Lien vers l'API de l'ADEME pour calculer les impacts CO2: https://impactco2.fr/doc/api
+Consignes
+1. Proposer un diagramme pour chaque processus
+2. 2
+Créer un modèle de données supportant ce projet
+3. 3
+Créer les interfaces Web permettant de supporter les processus
+Votre projet sera évalué selon le respect des exigences suivantes :
+* 
+* Présence d'un dossier de conception de l’application permettant de répondre aux spécifications précédemment énoncées. Ce dossier de conception devra au moins comporter :
+   * La vue fonctionnelle du système (on pourra s'appuyer sur des diagrammes de cas d'utilisation UML)
+   * La justification des choix dans la modélisation des processus métiers
+   * La justification des choix dans la modélisation des données métiers
+   * Le cas échéant :
+      * les différentes entités logicielles en identifiant leur rôle (on pourra s’appuyer sur un diagramme de composants et/ou de déploiement UML).
+      * Les interactions pouvant survenir entre ces types d’entités (diagramme de séquence UML).
+   * Les éléments de contexte pris ou non pris en compte dan la réalisation (cas d'erreurs, etc.)
+* 
+* Une maquette de la solution envisagée doit être développée en utilisant Bonita. Celle-ci devra donner une image fidèle de la solution réelle ensuite déployée et son ergonomie sera également prise en compte
+* 
+* Le respect du cahier des charges énoncé
+* 
+* La qualité de la solution proposée
+Bonus
+Les fonctionnalités supplémentaires que vous mettrez en œuvre seront aussi comptabilisées à la condition que tous les éléments du projet aient été correctement traités au préalable. 
+Il vous est interdit de vous appuyer sur des API on-the-shelf payantes.
+Clé API à utiliser pour le projet :  51198b04-e272-40d0-b80a-6971d5c5c364

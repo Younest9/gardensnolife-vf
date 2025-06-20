@@ -4,7 +4,7 @@
   "type" : "form",
   "uuid" : "da6ff340-b905-49dc-81dc-b24151072c1e",
   "modelVersion" : "2.6",
-  "lastUpdate" : 1750366465178,
+  "lastUpdate" : 1750375025508,
   "description" : "Page generated with Bonita UI designer",
   "rows" : [
     [
@@ -154,6 +154,91 @@
           },
           "label" : {
             "type" : "interpolation",
+            "value" : "Collaborateur"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "formInput.collaborateur"
+          },
+          "debounce" : {
+            "type" : "constant",
+            "value" : 0
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          }
+        },
+        "reference" : "ec40c7d1-61c9-4e35-bcb0-523c77c3a2d5",
+        "hasValidationError" : false,
+        "id" : "pbInput"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "readOnly" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
             "value" : "Destination"
           },
           "labelPosition" : {
@@ -168,7 +253,8 @@
             "type" : "interpolation"
           },
           "value" : {
-            "type" : "variable"
+            "type" : "variable",
+            "value" : "formInput.destination"
           },
           "debounce" : {
             "type" : "constant",
@@ -241,7 +327,8 @@
             "value" : 4
           },
           "value" : {
-            "type" : "variable"
+            "type" : "variable",
+            "value" : "formInput.dateDebut"
           },
           "dateFormat" : {
             "type" : "constant",
@@ -312,7 +399,8 @@
             "value" : 4
           },
           "value" : {
-            "type" : "variable"
+            "type" : "variable",
+            "value" : "formInput.dateFin"
           },
           "dateFormat" : {
             "type" : "constant",
@@ -391,7 +479,8 @@
             "value" : 4
           },
           "value" : {
-            "type" : "variable"
+            "type" : "variable",
+            "value" : "formInput.motif"
           }
         },
         "reference" : "1c7958c9-95e3-4cb4-b858-93f74ce5d713",
@@ -457,7 +546,8 @@
             "type" : "interpolation"
           },
           "value" : {
-            "type" : "variable"
+            "type" : "variable",
+            "value" : "formInput.avanceFrais"
           },
           "debounce" : {
             "type" : "constant",
@@ -668,7 +758,20 @@
       "type" : "expression",
       "value" : [
         "return {",
-        "",
+        "  demandeMissionInput: [{",
+        "    persistenceId_string: null,",
+        "    id: null,",
+        "    collaborateur: $data.context.user.user_name,",
+        "    destination: $data.formInput.destination,",
+        "    dateDebut: $data.formInput.dateDebut ? new Date($data.formInput.dateDebut).toISOString() : null,",
+        "    dateFin: $data.formInput.dateFin ? new Date($data.formInput.dateFin).toISOString() : null,",
+        "    motif: $data.formInput.motif,",
+        "    avanceFrais: $data.formInput.avanceFrais || 0,",
+        "    decisionManager: null,",
+        "    decisionRH: null,",
+        "    statut: \"EN_COURS\",",
+        "    dateCreation: new Date().toISOString()",
+        "  }]",
         "}"
       ],
       "exposed" : false
@@ -684,6 +787,20 @@
       "type" : "urlparameter",
       "value" : [
         "id"
+      ],
+      "exposed" : false
+    },
+    "formInput" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "  \"collaborateur\": \"\",",
+        "  \"destination\": \"\",",
+        "  \"dateDebut\": null,",
+        "  \"dateFin\": null,",
+        "  \"motif\": \"\",",
+        "  \"avanceFrais\": 0",
+        "}"
       ],
       "exposed" : false
     }

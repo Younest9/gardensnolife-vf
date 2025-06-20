@@ -4,7 +4,7 @@
   "type" : "form",
   "uuid" : "8edb11b6-641f-4c97-9893-ac43a88f80eb",
   "modelVersion" : "2.6",
-  "lastUpdate" : 1750366687110,
+  "lastUpdate" : 1750373662471,
   "description" : "Page generated with Bonita UI designer",
   "rows" : [
     [
@@ -122,6 +122,58 @@
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
+            "value" : "alert alert-info"
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "Décision du Manager: {{demandeMission.decisionManager ? \"✅ Approuvée\" : \"❌ Refusée\"}}"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "e2a6fe97-405d-4266-b8ff-cf8df07ebbde",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
             "value" : ""
           },
           "hidden" : {
@@ -146,7 +198,7 @@
           },
           "label" : {
             "type" : "interpolation",
-            "value" : "Accepter / Refuser"
+            "value" : "Décision RH"
           },
           "labelPosition" : {
             "type" : "constant",
@@ -163,18 +215,21 @@
           "availableValues" : {
             "type" : "constant",
             "value" : [
-              "yes",
-              "no"
+              "Accepter",
+              "Refuser"
             ]
           },
           "displayedKey" : {
-            "type" : "constant"
+            "type" : "constant",
+            "value" : "true, false"
           },
           "returnedKey" : {
-            "type" : "constant"
+            "type" : "constant",
+            "value" : "true, false"
           },
           "selectedValue" : {
-            "type" : "variable"
+            "type" : "variable",
+            "value" : "formInput.decision"
           }
         },
         "reference" : "bb568a13-9fc2-4e0c-b02e-185fadd8c8fb",
@@ -229,7 +284,7 @@
                   },
                   "label" : {
                     "type" : "interpolation",
-                    "value" : "Submit"
+                    "value" : "Valider l'analyse"
                   },
                   "dataToSend" : {
                     "type" : "expression",
@@ -275,6 +330,27 @@
                   "dimension" : {
                     "type" : "constant",
                     "value" : 12
+                  },
+                  "assign" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "url" : {
+                    "type" : "interpolation"
+                  },
+                  "responseStatusCode" : {
+                    "type" : "variable"
+                  },
+                  "dataFromSuccess" : {
+                    "type" : "variable"
+                  },
+                  "closeOnSuccess" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "modalId" : {
+                    "type" : "constant",
+                    "value" : ""
                   }
                 },
                 "reference" : "62365519-c78f-4525-a85f-46f7bea04ef4",
@@ -366,9 +442,9 @@
     "formOutput" : {
       "type" : "expression",
       "value" : [
-        "return {",
-        "",
-        "}"
+        "   return {",
+        "     decision: $data.formInput.decision === \"Accepter\"",
+        "   }"
       ],
       "exposed" : false
     },
@@ -383,6 +459,26 @@
       "type" : "urlparameter",
       "value" : [
         "id"
+      ],
+      "exposed" : false
+    },
+    "formInput" : {
+      "type" : "json",
+      "value" : [
+        "   {",
+        "     \"decision\": null",
+        "   }"
+      ],
+      "exposed" : false
+    },
+    "demandeMission" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.context && $data.context.demandeMission && $data.context.demandeMission.length > 0) {",
+        "  return $data.context.demandeMission[0];",
+        "} else {",
+        "  return null;",
+        "}"
       ],
       "exposed" : false
     }
