@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/bpm/configuration" xmlns:decision="http://www.bonitasoft.org/ns/bpm/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/bpm/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:process="http://www.bonitasoft.org/ns/bpm/process">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/bpm/configuration" xmlns:connectorconfiguration="http://www.bonitasoft.org/model/connector/configuration" xmlns:decision="http://www.bonitasoft.org/ns/bpm/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/bpm/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:process="http://www.bonitasoft.org/ns/bpm/process">
   <process:MainProcess xmi:id="_s6Lk4E1oEfC2Nsglly8TUQ" name="V" version="1" bonitaModelVersion="8">
     <elements xmi:type="process:Pool" xmi:id="_s6Lk4U1oEfC2Nsglly8TUQ" name="Gardensnolife" version="1">
       <elements xmi:type="process:Lane" xmi:id="_s6Lk4k1oEfC2Nsglly8TUQ" name="Collaborateur" actor="_s6Llrk1oEfC2Nsglly8TUQ">
@@ -12,14 +12,15 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_s6Lk6E1oEfC2Nsglly8TUQ" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_s6Lk6U1oEfC2Nsglly8TUQ" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_s6Lk6k1oEfC2Nsglly8TUQ" name="" content="" returnTypeFixed="true"/>
-          <operations xmi:type="expression:Operation" xmi:id="_s6Lk601oEfC2Nsglly8TUQ">
-            <leftOperand xmi:type="expression:Expression" xmi:id="_s6Lk7E1oEfC2Nsglly8TUQ" name="demandeMission" content="demandeMission" type="TYPE_VARIABLE" returnType="java.util.List">
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_s6Lk7U1oEfC2Nsglly8TUQ" name="demandeMission" multiple="true" dataType="_s6Ll301oEfC2Nsglly8TUQ" className="com.gardensnolife.model.DemandeMission"/>
+          <operations xmi:type="expression:Operation" xmi:id="_etFeUE27EfCqgcqrg4_E4Q">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_etFeUU27EfCqgcqrg4_E4Q" name="demandeMission" content="demandeMission" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_etFeUk27EfCqgcqrg4_E4Q" name="demandeMission" multiple="true" dataType="_s6Ll301oEfC2Nsglly8TUQ" className="com.gardensnolife.model.DemandeMission"/>
             </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_s6Lk7k1oEfC2Nsglly8TUQ" name="demandeMissionInput" content="demandeMissionInput" type="TYPE_CONTRACT_INPUT" returnType="java.util.List">
-              <referencedElements xmi:type="process:ContractInput" xmi:id="_s6Lk701oEfC2Nsglly8TUQ" name="demandeMissionInput" type="COMPLEX" multiple="true"/>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_etFeU027EfCqgcqrg4_E4Q" name="demandeMissionInput" content="def demandeMissionList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;demandeMissionInput.each{&#xD;&#xA;&#x9;//Add DemandeMission instance&#xD;&#xA;&#x9;demandeMissionList.add({ currentDemandeMissionInput ->&#xD;&#xA;&#x9;&#x9;def demandeMissionVar = demandeMission.find { it.persistenceId.toString() == currentDemandeMissionInput.persistenceId_string} ?: new com.gardensnolife.model.DemandeMission()&#xD;&#xA;&#x9;&#x9;demandeMissionVar.collaborateur = currentDemandeMissionInput.collaborateur&#xD;&#xA;&#x9;&#x9;demandeMissionVar.destination = currentDemandeMissionInput.destination&#xD;&#xA;&#x9;&#x9;demandeMissionVar.dateDebut = currentDemandeMissionInput.dateDebut&#xD;&#xA;&#x9;&#x9;demandeMissionVar.dateFin = currentDemandeMissionInput.dateFin&#xD;&#xA;&#x9;&#x9;demandeMissionVar.motif = currentDemandeMissionInput.motif&#xD;&#xA;&#x9;&#x9;demandeMissionVar.avanceFrais = currentDemandeMissionInput.avanceFrais&#xD;&#xA;&#x9;&#x9;return demandeMissionVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return demandeMissionList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_etFeVE27EfCqgcqrg4_E4Q" name="demandeMissionInput" type="COMPLEX" multiple="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_etFeVU27EfCqgcqrg4_E4Q" name="demandeMission" multiple="true" dataType="_s6Ll301oEfC2Nsglly8TUQ" className="com.gardensnolife.model.DemandeMission"/>
             </rightOperand>
-            <operator xmi:type="expression:Operator" xmi:id="_s6Lk8E1oEfC2Nsglly8TUQ" type="ASSIGNMENT" expression="addAll">
+            <operator xmi:type="expression:Operator" xmi:id="_etFeVk27EfCqgcqrg4_E4Q" type="ASSIGNMENT" expression="addAll">
               <inputTypes>java.util.Collection</inputTypes>
             </operator>
           </operations>
@@ -32,20 +33,21 @@
             <targetForm xmi:type="expression:Expression" xmi:id="_s6Lk901oEfC2Nsglly8TUQ" name="SaisirDemandeMission" content="da6ff340-b905-49dc-81dc-b24151072c1e" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <contract xmi:type="process:Contract" xmi:id="_s6Lk-E1oEfC2Nsglly8TUQ">
-            <inputs xmi:type="process:ContractInput" xmi:id="_s6Lk-U1oEfC2Nsglly8TUQ" name="demandeMissionInput" type="COMPLEX" multiple="true" dataReference="demandeMission">
-              <inputs xmi:type="process:ContractInput" xmi:id="_s6Lk-k1oEfC2Nsglly8TUQ" name="persistenceId_string"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_s6Lk-01oEfC2Nsglly8TUQ" name="id"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_s6Lk_E1oEfC2Nsglly8TUQ" name="collaborateur"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_s6Lk_U1oEfC2Nsglly8TUQ" name="destination"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_s6Lk_k1oEfC2Nsglly8TUQ" name="dateDebut" type="OFFSETDATETIME"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_s6Lk_01oEfC2Nsglly8TUQ" name="dateFin" type="OFFSETDATETIME"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_s6LlAE1oEfC2Nsglly8TUQ" name="motif"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_s6LlAU1oEfC2Nsglly8TUQ" name="avanceFrais" type="DECIMAL"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_s6LlAk1oEfC2Nsglly8TUQ" name="decisionManager" type="BOOLEAN"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_s6LlA01oEfC2Nsglly8TUQ" name="decisionRH" type="BOOLEAN"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_s6LlBE1oEfC2Nsglly8TUQ" name="statut"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_s6LlBU1oEfC2Nsglly8TUQ" name="dateCreation" type="OFFSETDATETIME"/>
+            <inputs xmi:type="process:ContractInput" xmi:id="_etE3QE27EfCqgcqrg4_E4Q" name="demandeMissionInput" type="COMPLEX" multiple="true" dataReference="demandeMission" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_etE3QU27EfCqgcqrg4_E4Q" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_etE3Qk27EfCqgcqrg4_E4Q" name="collaborateur" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_etE3Q027EfCqgcqrg4_E4Q" name="destination" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_etE3RE27EfCqgcqrg4_E4Q" name="dateDebut" type="OFFSETDATETIME" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_etE3RU27EfCqgcqrg4_E4Q" name="dateFin" type="OFFSETDATETIME" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_etE3Rk27EfCqgcqrg4_E4Q" name="motif" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_etE3R027EfCqgcqrg4_E4Q" name="avanceFrais" type="DECIMAL" createMode="false"/>
             </inputs>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_etE3SE27EfCqgcqrg4_E4Q" expression="demandeMissionInput?.collaborateur.flatten().every{it!=null}" errorMessage="collaborateur is mandatory for DemandeMission" name="mandatory_demandeMissionInput_collaborateur">
+              <inputNames>demandeMissionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_etE3SU27EfCqgcqrg4_E4Q" expression="demandeMissionInput?.destination.flatten().every{it!=null}" errorMessage="destination is mandatory for DemandeMission" name="mandatory_demandeMissionInput_destination">
+              <inputNames>demandeMissionInput</inputNames>
+            </constraints>
           </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_s6LlBk1oEfC2Nsglly8TUQ" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
@@ -184,6 +186,75 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_s6LlZk1oEfC2Nsglly8TUQ" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_s6LlZ01oEfC2Nsglly8TUQ" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_s6LlaE1oEfC2Nsglly8TUQ" name="" content="" returnTypeFixed="true"/>
+          <connectors xmi:type="process:Connector" xmi:id="_8jVg4E2xEfCqgcqrg4_E4Q" name="email connnector" definitionId="email" event="ON_ENTER" definitionVersion="1.2.0">
+            <configuration xmi:type="connectorconfiguration:ConnectorConfiguration" xmi:id="_8jVg4U2xEfCqgcqrg4_E4Q" definitionId="email" version="1.2.0" modelVersion="8">
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8jVg4k2xEfCqgcqrg4_E4Q" key="smtpHost">
+                <expression xmi:type="expression:Expression" xmi:id="_8jVg402xEfCqgcqrg4_E4Q" name="smtp.gmail.com" content="smtp.gmail.com" returnTypeFixed="true"/>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8jVg5E2xEfCqgcqrg4_E4Q" key="smtpPort">
+                <expression xmi:type="expression:Expression" xmi:id="_8jVg5U2xEfCqgcqrg4_E4Q" name="465" content="465" returnType="java.lang.Integer" returnTypeFixed="true"/>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8jVg5k2xEfCqgcqrg4_E4Q" key="sslSupport">
+                <expression xmi:type="expression:Expression" xmi:id="_8jVg502xEfCqgcqrg4_E4Q" name="true" content="true" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8jVg6E2xEfCqgcqrg4_E4Q" key="starttlsSupport">
+                <expression xmi:type="expression:Expression" xmi:id="_8jVg6U2xEfCqgcqrg4_E4Q" name="false" content="false" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8jVg6k2xEfCqgcqrg4_E4Q" key="trustCertificate">
+                <expression xmi:type="expression:Expression" xmi:id="_8jVg602xEfCqgcqrg4_E4Q" name="false" content="false" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8jVg7E2xEfCqgcqrg4_E4Q" key="userName">
+                <expression xmi:type="expression:Expression" xmi:id="_8jVg7U2xEfCqgcqrg4_E4Q" name="noreply@gardensnolife.com" content="noreply@gardensnolife.com" returnTypeFixed="true"/>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8jVg7k2xEfCqgcqrg4_E4Q" key="password">
+                <expression xmi:type="expression:Expression" xmi:id="_8jVg702xEfCqgcqrg4_E4Q" name="gardensnolife2024" content="gardensnolife2024" returnTypeFixed="true"/>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8jVg8E2xEfCqgcqrg4_E4Q" key="from">
+                <expression xmi:type="expression:Expression" xmi:id="_8jVg8U2xEfCqgcqrg4_E4Q" name="noreply@gardensnolife.com" content="noreply@gardensnolife.com" returnTypeFixed="true"/>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8jVg8k2xEfCqgcqrg4_E4Q" key="returnPath">
+                <expression xmi:type="expression:Expression" xmi:id="_8jVg802xEfCqgcqrg4_E4Q" content="" returnTypeFixed="true"/>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8jVg9E2xEfCqgcqrg4_E4Q" key="to">
+                <expression xmi:type="expression:Expression" xmi:id="_8jVg9U2xEfCqgcqrg4_E4Q" name="getCollaborateurEmail()" content="&#xD;&#xA;// Récupérer l'email du collaborateur depuis la business data ou l'organisation&#xD;&#xA;if (demandeMission != null &amp;&amp; !demandeMission.isEmpty()) {&#xD;&#xA;    def mission = demandeMission.get(0)&#xD;&#xA;    def collaborateurUsername = mission.collaborateur&#xD;&#xA;    &#xD;&#xA;    // Utiliser l'API Bonita pour récupérer l'email de l'utilisateur&#xD;&#xA;    try {&#xD;&#xA;        def identityAPI = apiAccessor.getIdentityAPI()&#xD;&#xA;        def user = identityAPI.getUserByUserName(collaborateurUsername)&#xD;&#xA;        def contactData = identityAPI.getUserContactData(user.getId(), false)&#xD;&#xA;        &#xD;&#xA;        if (contactData.getEmail() != null &amp;&amp; !contactData.getEmail().isEmpty()) {&#xD;&#xA;            return contactData.getEmail()&#xD;&#xA;        } else {&#xD;&#xA;            // Fallback vers un email par défaut&#xD;&#xA;            return collaborateurUsername + &quot;@gardensnolife.com&quot;&#xD;&#xA;        }&#xD;&#xA;    } catch (Exception e) {&#xD;&#xA;        // En cas d'erreur, utiliser l'email par défaut&#xD;&#xA;        return collaborateurUsername + &quot;@gardensnolife.com&quot;&#xD;&#xA;    }&#xD;&#xA;} else {&#xD;&#xA;    return &quot;noreply@gardensnolife.com&quot;&#xD;&#xA;}" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnTypeFixed="true">
+                  <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_8jVg9k2xEfCqgcqrg4_E4Q" name="demandeMission" multiple="true" dataType="_s6Ll301oEfC2Nsglly8TUQ" className="com.gardensnolife.model.DemandeMission"/>
+                </expression>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8jVg9k2xEfCqgcqrg4_E4Q" key="bcc">
+                <expression xmi:type="expression:Expression" xmi:id="_8jVg902xEfCqgcqrg4_E4Q" content="" returnTypeFixed="true"/>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8jVg-E2xEfCqgcqrg4_E4Q" key="cc">
+                <expression xmi:type="expression:Expression" xmi:id="_8jVg-U2xEfCqgcqrg4_E4Q" content="" returnTypeFixed="true"/>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8jVg-k2xEfCqgcqrg4_E4Q" key="subject">
+                <expression xmi:type="expression:Expression" xmi:id="_8jVg-02xEfCqgcqrg4_E4Q" name="getSubject()" content="&#xD;&#xA;if (demandeMission != null &amp;&amp; !demandeMission.isEmpty()) {&#xD;&#xA;    def mission = demandeMission.get(0)&#xD;&#xA;    def statut = mission.statut&#xD;&#xA;    def destination = mission.destination&#xD;&#xA;    &#xD;&#xA;    if (statut == &quot;APPROUVEE&quot;) {&#xD;&#xA;        return &quot;✅ Demande de mission approuvée - &quot; + destination&#xD;&#xA;    } else {&#xD;&#xA;        return &quot;❌ Demande de mission refusée - &quot; + destination&#xD;&#xA;    }&#xD;&#xA;} else {&#xD;&#xA;    return &quot;Notification - Demande de mission&quot;&#xD;&#xA;}" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnTypeFixed="true">
+                  <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_8jVg-U2xEfCqgcqrg4_E4Q" name="demandeMission" multiple="true" dataType="_s6Ll301oEfC2Nsglly8TUQ" className="com.gardensnolife.model.DemandeMission"/>
+                </expression>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8jVg_E2xEfCqgcqrg4_E4Q" key="html">
+                <expression xmi:type="expression:Expression" xmi:id="_8jVg_U2xEfCqgcqrg4_E4Q" name="true" content="true" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8jVg_k2xEfCqgcqrg4_E4Q" key="message">
+                <expression xmi:type="expression:Expression" xmi:id="_8jVg_02xEfCqgcqrg4_E4Q" name="generateEmailContent()" content="if (demandeMission != null &amp;&amp; !demandeMission.isEmpty()) {&#xD;&#xA;    def mission = demandeMission.get(0)&#xD;&#xA;    def collaborateur = mission.collaborateur&#xD;&#xA;    def destination = mission.destination&#xD;&#xA;    def dateDebut = mission.dateDebut&#xD;&#xA;    def dateFin = mission.dateFin&#xD;&#xA;    def motif = mission.motif&#xD;&#xA;    def avanceFrais = mission.avanceFrais&#xD;&#xA;    def statut = mission.statut&#xD;&#xA;    def decisionManager = mission.decisionManager&#xD;&#xA;    def decisionRH = mission.decisionRH&#xD;&#xA;    &#xD;&#xA;    def statutMessage = (statut == &quot;APPROUVEE&quot;) ? &quot;approuvée&quot; : &quot;refusée&quot;&#xD;&#xA;    def statutIcon = (statut == &quot;APPROUVEE&quot;) ? &quot;✅&quot; : &quot;❌&quot;&#xD;&#xA;    def statutColor = (statut == &quot;APPROUVEE&quot;) ? &quot;green&quot; : &quot;red&quot;&#xD;&#xA;    &#xD;&#xA;    def email = &quot;&lt;html>&lt;body style='font-family: Arial, sans-serif; color: #333;'>&quot;&#xD;&#xA;    email += &quot;&lt;h2 style='color: ${statutColor};'>${statutIcon} Demande de Mission ${statutMessage.toUpperCase()}&lt;/h2>&quot;&#xD;&#xA;    email += &quot;&lt;p>Bonjour &lt;strong>${collaborateur}&lt;/strong>,&lt;/p>&quot;&#xD;&#xA;    email += &quot;&lt;p>Votre demande de mission a été &lt;strong>${statutMessage}&lt;/strong>.&lt;/p>&quot;&#xD;&#xA;    email += &quot;&lt;div style='background: #f9f9f9; padding: 15px; margin: 20px 0;'>&quot;&#xD;&#xA;    email += &quot;&lt;h3>Détails de la mission :&lt;/h3>&quot;&#xD;&#xA;    email += &quot;&lt;p>&lt;strong>Destination :&lt;/strong> ${destination}&lt;/p>&quot;&#xD;&#xA;    email += &quot;&lt;p>&lt;strong>Date de début :&lt;/strong> ${dateDebut ? dateDebut.format('dd/MM/yyyy') : 'Non spécifiée'}&lt;/p>&quot;&#xD;&#xA;    email += &quot;&lt;p>&lt;strong>Date de fin :&lt;/strong> ${dateFin ? dateFin.format('dd/MM/yyyy') : 'Non spécifiée'}&lt;/p>&quot;&#xD;&#xA;    email += &quot;&lt;p>&lt;strong>Motif :&lt;/strong> ${motif ?: 'Non spécifié'}&lt;/p>&quot;&#xD;&#xA;    email += &quot;&lt;p>&lt;strong>Avance de frais :&lt;/strong> ${avanceFrais ? avanceFrais + '€' : '0€'}&lt;/p>&quot;&#xD;&#xA;    email += &quot;&lt;/div>&quot;&#xD;&#xA;    email += &quot;&lt;div style='background: #e9ecef; padding: 15px; margin: 20px 0;'>&quot;&#xD;&#xA;    email += &quot;&lt;h3>Décisions :&lt;/h3>&quot;&#xD;&#xA;    email += &quot;&lt;p>&lt;strong>Manager :&lt;/strong> ${decisionManager ? '✅ Approuvée' : '❌ Refusée'}&lt;/p>&quot;&#xD;&#xA;    email += &quot;&lt;p>&lt;strong>Service RH :&lt;/strong> ${decisionRH ? '✅ Approuvée' : '❌ Refusée'}&lt;/p>&quot;&#xD;&#xA;    if (decisionManager != decisionRH) {&#xD;&#xA;        email += &quot;&lt;p style='font-size: 0.9em; color: #666;'>⚠️ Note: En cas de désaccord, la décision du manager prévaut.&lt;/p>&quot;&#xD;&#xA;    }&#xD;&#xA;    email += &quot;&lt;/div>&quot;&#xD;&#xA;    if (statut == 'APPROUVEE') {&#xD;&#xA;        email += &quot;&lt;div style='background: #d4edda; padding: 15px; margin: 20px 0; color: #155724;'>&quot;&#xD;&#xA;        email += &quot;&lt;p>&lt;strong>Félicitations !&lt;/strong> Votre mission est approuvée.&lt;/p>&quot;&#xD;&#xA;        email += &quot;&lt;/div>&quot;&#xD;&#xA;    } else {&#xD;&#xA;        email += &quot;&lt;div style='background: #f8d7da; padding: 15px; margin: 20px 0; color: #721c24;'>&quot;&#xD;&#xA;        email += &quot;&lt;p>Nous regrettons que votre demande n'ait pas pu être approuvée.&lt;/p>&quot;&#xD;&#xA;        email += &quot;&lt;/div>&quot;&#xD;&#xA;    }&#xD;&#xA;    email += &quot;&lt;hr style='margin: 30px 0;'>&quot;&#xD;&#xA;    email += &quot;&lt;p style='font-size: 0.9em; color: #666;'>Pour toute question, contactez votre manager ou le service RH.&lt;/p>&quot;&#xD;&#xA;    email += &quot;&lt;p style='font-size: 0.9em; color: #666;'>Cordialement,&lt;br>&lt;strong>L'équipe GardensNoLife&lt;/strong>&lt;/p>&quot;&#xD;&#xA;    email += &quot;&lt;/body>&lt;/html>&quot;&#xD;&#xA;    &#xD;&#xA;    return email&#xD;&#xA;} else {&#xD;&#xA;    return &quot;&lt;p>Erreur: Impossible de récupérer les informations de la demande de mission.&lt;/p>&quot;&#xD;&#xA;}" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnTypeFixed="true">
+                  <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_8jVg_k2xEfCqgcqrg4_E4Q" name="demandeMission" multiple="true" dataType="_s6Ll301oEfC2Nsglly8TUQ" className="com.gardensnolife.model.DemandeMission"/>
+                  <referencedElements xmi:type="process:Data" xmi:id="_8jVg_02xEfCqgcqrg4_E4Q" name="decisionManager" dataType="_s6Ll101oEfC2Nsglly8TUQ"/>
+                  <referencedElements xmi:type="process:Data" xmi:id="_8jVhAE2xEfCqgcqrg4_E4Q" name="decisionRH" dataType="_s6Ll101oEfC2Nsglly8TUQ"/>
+                </expression>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8jVhAE2xEfCqgcqrg4_E4Q" key="headers">
+                <expression xmi:type="expression:TableExpression" xmi:id="_8jVhAU2xEfCqgcqrg4_E4Q"/>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8jVhAk2xEfCqgcqrg4_E4Q" key="charset">
+                <expression xmi:type="expression:Expression" xmi:id="_8jVhA02xEfCqgcqrg4_E4Q" name="UTF-8" content="UTF-8" returnTypeFixed="true"/>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8jVhBE2xEfCqgcqrg4_E4Q" key="replyTo">
+                <expression xmi:type="expression:Expression" xmi:id="_8jVhBU2xEfCqgcqrg4_E4Q" content="" returnTypeFixed="true"/>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_8jVhBk2xEfCqgcqrg4_E4Q" key="attachments">
+                <expression xmi:type="expression:ListExpression" xmi:id="_8jVhB02xEfCqgcqrg4_E4Q"/>
+              </parameters>
+            </configuration>
+          </connectors>
           <operations xmi:type="expression:Operation" xmi:id="_s6LlaU1oEfC2Nsglly8TUQ">
             <leftOperand xmi:type="expression:Expression" xmi:id="_s6Llak1oEfC2Nsglly8TUQ" name="demandeMission" content="demandeMission" type="TYPE_VARIABLE" returnType="java.util.List">
               <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_s6Lla01oEfC2Nsglly8TUQ" name="demandeMission" multiple="true" dataType="_s6Ll301oEfC2Nsglly8TUQ" className="com.gardensnolife.model.DemandeMission"/>
@@ -228,10 +299,10 @@
       <data xmi:type="process:Data" xmi:id="_s6Llh01oEfC2Nsglly8TUQ" name="decisionRH" dataType="_s6Ll101oEfC2Nsglly8TUQ">
         <defaultValue xmi:type="expression:Expression" xmi:id="_s6LliE1oEfC2Nsglly8TUQ" content="" returnType="java.lang.Boolean"/>
       </data>
-      <formMapping xmi:type="process:FormMapping" xmi:id="_s6LliU1oEfC2Nsglly8TUQ">
+      <formMapping xmi:type="process:FormMapping" xmi:id="_s6LliU1oEfC2Nsglly8TUQ" type="NONE">
         <targetForm xmi:type="expression:Expression" xmi:id="_s6Llik1oEfC2Nsglly8TUQ" name="SaisirDemandeMission" content="da6ff340-b905-49dc-81dc-b24151072c1e" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
-      <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_s6Lli01oEfC2Nsglly8TUQ">
+      <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_s6Lli01oEfC2Nsglly8TUQ" type="NONE">
         <targetForm xmi:type="expression:Expression" xmi:id="_s6LljE1oEfC2Nsglly8TUQ" name="EtudierDemande" content="5e7fe357-b84d-4080-a04c-efb0a761538c" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </overviewFormMapping>
       <connections xmi:type="process:SequenceFlow" xmi:id="_s6LljU1oEfC2Nsglly8TUQ" target="_s6Lk501oEfC2Nsglly8TUQ" source="_s6Lk401oEfC2Nsglly8TUQ">
@@ -311,11 +382,17 @@
             </roles>
             <users xmi:type="actormapping:Users" xmi:id="_s6LlwU1oEfC2Nsglly8TUQ">
               <user>andre.lejardinier</user>
-              <user>walter.bates</user>
             </users>
           </actorMapping>
         </actorMappings>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_s6Llwk1oEfC2Nsglly8TUQ" id="CONNECTOR"/>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_ANUfUE2yEfCqgcqrg4_E4Q" type="CONNECTOR" definitionId="email" definitionVersion="1.2.0" implementationId="email-impl" implementationVersion="1.4.2"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_s6Llwk1oEfC2Nsglly8TUQ" id="CONNECTOR">
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_ANoBUE2yEfCqgcqrg4_E4Q" id="email-impl-1.4.2">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_ANpPcE2yEfCqgcqrg4_E4Q" key="email-impl -- 1.4.2" value="bonita-connector-email-1.4.2.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_ANp2gE2yEfCqgcqrg4_E4Q" key="email-impl -- 1.4.2" value="jakarta.mail-1.6.7.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_ANp2gU2yEfCqgcqrg4_E4Q" key="email-impl -- 1.4.2" value="jakarta.mail-api-1.6.7.jar" type="CONNECTOR"/>
+          </children>
+        </processDependencies>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_s6Llw01oEfC2Nsglly8TUQ" id="GROOVY_SCRIPT"/>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_s6LlxE1oEfC2Nsglly8TUQ" id="ACTOR_FILTER"/>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_s6LlxU1oEfC2Nsglly8TUQ" id="OTHER"/>

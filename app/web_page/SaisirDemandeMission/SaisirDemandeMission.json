@@ -215,7 +215,7 @@
           },
           "required" : {
             "type" : "constant",
-            "value" : false
+            "value" : true
           },
           "allowHTML" : {
             "type" : "constant",
@@ -239,7 +239,7 @@
           },
           "label" : {
             "type" : "interpolation",
-            "value" : "Destination"
+            "value" : "Destination *"
           },
           "labelPosition" : {
             "type" : "constant",
@@ -657,7 +657,7 @@
                   },
                   "disabled" : {
                     "type" : "expression",
-                    "value" : "$form.$invalid"
+                    "value" : "$form.$invalid || !isFormValid"
                   },
                   "alignment" : {
                     "type" : "constant",
@@ -725,6 +725,55 @@
                 "id" : "pbText",
                 "description" : ""
               }
+            ],
+            [
+              {
+                "type" : "component",
+                "dimension" : {
+                  "md" : 12,
+                  "sm" : 12,
+                  "xs" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "allowHTML" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "labelHidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : true
+                  },
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : "well"
+                  },
+                  "label" : {
+                    "type" : "interpolation",
+                    "value" : "Debug Info (Form Data)"
+                  },
+                  "text" : {
+                    "type" : "interpolation",
+                    "value" : "{{debugInfo}}"
+                  },
+                  "alignment" : {
+                    "type" : "constant",
+                    "value" : "left"
+                  },
+                  "dimension" : {
+                    "type" : "constant",
+                    "value" : 12
+                  }
+                },
+                "reference" : "debug-info-component",
+                "hasValidationError" : false,
+                "id" : "pbText",
+                "description" : "Debug information component"
+              }
             ]
           ]
         }
@@ -761,15 +810,15 @@
         "  demandeMissionInput: [{",
         "    persistenceId_string: null,",
         "    id: null,",
-        "    collaborateur: $data.context.user.user_name,",
-        "    destination: $data.formInput.destination,",
+        "    collaborateur: $data.formInput.collaborateur || ($data.context && $data.context.user ? $data.context.user.user_name : 'walter.bates'),",
+        "    destination: $data.formInput.destination || '',",
         "    dateDebut: $data.formInput.dateDebut ? new Date($data.formInput.dateDebut).toISOString() : null,",
         "    dateFin: $data.formInput.dateFin ? new Date($data.formInput.dateFin).toISOString() : null,",
-        "    motif: $data.formInput.motif,",
-        "    avanceFrais: $data.formInput.avanceFrais || 0,",
+        "    motif: $data.formInput.motif || '',",
+        "    avanceFrais: $data.formInput.avanceFrais ? Number($data.formInput.avanceFrais) : 0,",
         "    decisionManager: null,",
         "    decisionRH: null,",
-        "    statut: \"EN_COURS\",",
+        "    statut: 'EN_COURS',",
         "    dateCreation: new Date().toISOString()",
         "  }]",
         "}"
@@ -791,16 +840,46 @@
       "exposed" : false
     },
     "formInput" : {
-      "type" : "json",
+      "type" : "expression",
       "value" : [
-        "{",
-        "  \"collaborateur\": \"\",",
-        "  \"destination\": \"\",",
-        "  \"dateDebut\": null,",
-        "  \"dateFin\": null,",
-        "  \"motif\": \"\",",
-        "  \"avanceFrais\": 0",
+        "return {",
+        "  collaborateur: $data.context && $data.context.user ? $data.context.user.user_name : 'walter.bates',",
+        "  destination: '',",
+        "  dateDebut: null,",
+        "  dateFin: null,",
+        "  motif: '',",
+        "  avanceFrais: 0",
         "}"
+      ],
+      "exposed" : false
+    },
+    "isFormValid" : {
+      "type" : "expression",
+      "value" : [
+        "// Validation logic for required fields",
+        "const input = $data.formInput;",
+        "if (!input) return false;",
+        "",
+        "// Check required fields",
+        "const hasCollaborateur = input.collaborateur && input.collaborateur.trim() !== '';",
+        "const hasDestination = input.destination && input.destination.trim() !== '';",
+        "",
+        "// Basic validation: collaborateur and destination are required",
+        "return hasCollaborateur && hasDestination;"
+      ],
+      "exposed" : false
+    },
+    "debugInfo" : {
+      "type" : "expression",
+      "value" : [
+        "// Debug information for troubleshooting",
+        "const debug = {",
+        "  formInput: $data.formInput,",
+        "  context: $data.context,",
+        "  formOutput: $data.formOutput,",
+        "  isFormValid: $data.isFormValid",
+        "};",
+        "return JSON.stringify(debug, null, 2);"
       ],
       "exposed" : false
     }

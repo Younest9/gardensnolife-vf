@@ -1,0 +1,351 @@
+{
+  "id" : "DashboardCollaborateur",
+  "name" : "DashboardCollaborateur",
+  "type" : "page",
+  "uuid" : "9880b208-2fff-41bf-8b77-e3f90ef0bd91",
+  "modelVersion" : "2.6",
+  "lastUpdate" : 1750407372997,
+  "description" : "Page generated with Bonita UI designer",
+  "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "Mes demande de mission"
+          },
+          "level" : {
+            "type" : "constant",
+            "value" : "Level 1"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "center"
+          }
+        },
+        "reference" : "ed09a872-3e2c-44a2-aabb-e3ba137ab9df",
+        "hasValidationError" : false,
+        "id" : "pbTitle"
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "repeatedCollection" : {
+            "type" : "variable"
+          }
+        },
+        "reference" : "e0f775e6-f50e-4337-b4bd-745a3d167bf9",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Select"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Select an option"
+                },
+                "availableValues" : {
+                  "type" : "constant",
+                  "value" : [
+                    "[\"TOUS\"",
+                    "\"EN_COURS\"",
+                    "\"APPROUVEE\"",
+                    "\"REFUSEE\"]"
+                  ]
+                },
+                "displayedKey" : {
+                  "type" : "constant"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "statusFilter"
+                }
+              },
+              "reference" : "a68d1c1d-5ec5-4d7b-bc5a-44dafdc16637",
+              "hasValidationError" : false,
+              "id" : "pbSelect"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Date"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "value" : {
+                  "type" : "variable"
+                },
+                "dateFormat" : {
+                  "type" : "constant",
+                  "value" : "MM/dd/yyyy"
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Enter a date (mm/dd/yyyy)"
+                },
+                "showToday" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "todayLabel" : {
+                  "type" : "interpolation",
+                  "value" : "Today"
+                }
+              },
+              "reference" : "a5baf11a-2ce5-4ae4-8266-271c69fd0a96",
+              "hasValidationError" : false,
+              "id" : "pbDatePicker"
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "caption" : {
+            "type" : "interpolation"
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "headers" : {
+            "type" : "constant",
+            "value" : [
+              "Destination",
+              "Date début",
+              "Date fin",
+              "Statut",
+              "Décision Manager",
+              "Décision RH"
+            ]
+          },
+          "content" : {
+            "type" : "constant",
+            "value" : [
+              "filteredDemandes"
+            ]
+          },
+          "columnsKey" : {
+            "type" : "constant",
+            "value" : [
+              "{{item.destination}}",
+              "{{item.dateDebut | date:'dd/MM/yyyy'}}",
+              "{{item.dateFin | date:'dd/MM/yyyy'}}",
+              "{{item.statut}}",
+              "{{item.decisionManager ? 'Acceptée' : 'Refusée'}}",
+              "{{item.decisionRH ? 'Acceptée' : 'Refusée'}}"
+            ]
+          },
+          "selectedRow" : {
+            "type" : "variable"
+          },
+          "striped" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "condensed" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "bordered" : {
+            "type" : "constant",
+            "value" : false
+          }
+        },
+        "reference" : "6adce0c9-10f1-489f-8b48-703442bb8a5b",
+        "hasValidationError" : false,
+        "id" : "pbTable"
+      }
+    ]
+  ],
+  "variables" : {
+    "mesDemandes" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.gardensnolife.model.DemandeMission?q=find&p=0&c=20&f=collaborateur={{context.user.user_name}}"
+      ],
+      "exposed" : false
+    },
+    "statusFilter" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "  \"type\" : \"json\",",
+        "  \"value\" : \"TOUS\"",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "filteredDemandes" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.statusFilter === \"TOUS\") {",
+        "     return $data.mesDemandes;",
+        "   } else {",
+        "     return $data.mesDemandes.filter(function(item) {",
+        "       return item.statut === $data.statusFilter;",
+        "     });",
+        "   }"
+      ],
+      "exposed" : false
+    }
+  },
+  "assets" : [
+    {
+      "id" : "74e7e2dc-207b-411d-869e-470b7e76f910",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "eaa91567-9880-4851-a7ea-0af765c0c8bd",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
+    }
+  ],
+  "inactiveAssets" : [ ],
+  "webResources" : [ ],
+  "hasValidationError" : false
+}

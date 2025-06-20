@@ -318,6 +318,7 @@
         "id" : "pbText"
       }
     ],
+
     [
       {
         "type" : "component",
@@ -342,7 +343,7 @@
           },
           "required" : {
             "type" : "constant",
-            "value" : false
+            "value" : true
           },
           "allowHTML" : {
             "type" : "constant",
@@ -377,11 +378,11 @@
           },
           "displayedKey" : {
             "type" : "constant",
-            "value" : "true, false"
+            "value" : ""
           },
           "returnedKey" : {
             "type" : "constant",
-            "value" : "true, false"
+            "value" : ""
           },
           "selectedValue" : {
             "type" : "variable",
@@ -628,10 +629,17 @@
       "exposed" : false
     },
     "demandeMission" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.gardensnolife.model.DemandeMission/{{demandeMissionId}}"
+      ],
+      "exposed" : false
+    },
+    "demandeMissionId" : {
       "type" : "expression",
       "value" : [
-        "if($data.context && $data.context.demandeMission && $data.context.demandeMission.length > 0) {",
-        "  return $data.context.demandeMission[0];",
+        "if($data.context && $data.context.demandeMission_ref && $data.context.demandeMission_ref.storageIds && $data.context.demandeMission_ref.storageIds.length > 0) {",
+        "  return $data.context.demandeMission_ref.storageIds[0];",
         "} else {",
         "  return null;",
         "}"
