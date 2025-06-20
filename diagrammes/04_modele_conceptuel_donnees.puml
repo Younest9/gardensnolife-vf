@@ -1,0 +1,170 @@
+@startuml ModeleConceptuelDonnees_GardensNoLife
+title Modèle Conceptuel de Données - Système de Gestion des Missions GardensNoLife
+
+!define ENTITY class
+!define ENUM enum
+
+ENTITY Collaborateur {
+  + id : UUID <<PK>>
+  + username : String <<UNIQUE>>
+  + nom : String
+  + prenom : String
+  + email : String
+  + soldeJoursMission : Integer
+  + quotaCO2Annuel : Double
+  + quotaCO2Utilise : Double
+  + dateCreation : OffsetDateTime
+  + actif : Boolean
+  --
+  + calculerJoursRestants() : Integer
+  + calculerQuotaCO2Restant() : Double
+  + peutDemanderMission(duree, co2) : Boolean
+}
+
+ENTITY DemandeMission {
+  + id : UUID <<PK>>
+  + collaborateurId : UUID <<FK>>
+  + destination : String
+  + pays : String
+  + dateDebut : OffsetDateTime
+  + dateFin : OffsetDateTime
+  + motif : String
+  + avanceFrais : BigDecimal
+  + avanceFraisModifiee : BigDecimal
+  + monnaieLocale : String
+  + tauxChange : BigDecimal
+  + statut : StatutMission
+  + decisionManager : Boolean
+  + commentaireManager : String
+  + decisionRH : Boolean
+  + commentaireRH : String
+  + distanceKm : Double
+  + empreinteCO2 : Double
+  + moyenTransport : MoyenTransport
+  + dateCreation : OffsetDateTime
+  + dateValidation : OffsetDateTime
+  + dureeJours : Integer
+  --
+  + calculerDuree() : Integer
+  + calculerEmpreinteCO2() : Double
+  + validerQuotaCO2(collaborateur) : Boolean
+  + convertirEnMonnaieLocale() : BigDecimal
+  + estApprouvee() : Boolean
+}
+
+ENTITY HistoriqueMission {
+  + id : UUID <<PK>>
+  + missionId : UUID <<FK>>
+  + action : String
+  + acteur : String
+  + ancienneValeur : String
+  + nouvelleValeur : String
+  + dateAction : OffsetDateTime
+  + commentaire : String
+  --
+  + ajouterEntree(mission, action, acteur) : void
+}
+
+ENTITY ParametresSysteme {
+  + id : UUID <<PK>>
+  + cle : String <<UNIQUE>>
+  + valeur : String
+  + description : String
+  + typeValeur : String
+  + dateModification : OffsetDateTime
+  + modifiePar : String
+  --
+  + getValeurBoolean() : Boolean
+  + getValeurInteger() : Integer
+  + getValeurDouble() : Double
+}
+
+ENTITY QuotaCollaborateur {
+  + id : UUID <<PK>>
+  + collaborateurId : UUID <<FK>>
+  + annee : Integer
+  + quotaJoursInitial : Integer
+  + quotaJoursUtilise : Integer
+  + quotaCO2Initial : Double
+  + quotaCO2Utilise : Double
+  + dateReset : OffsetDateTime
+  --
+  + ajouterUtilisation(jours, co2) : void
+  + resetAnnuel() : void
+  + peutUtiliser(jours, co2) : Boolean
+}
+
+ENTITY NotificationEmail {
+  + id : UUID <<PK>>
+  + missionId : UUID <<FK>>
+  + destinataire : String
+  + sujet : String
+  + contenu : String
+  + dateEnvoi : OffsetDateTime
+  + statut : String
+  + nombreTentatives : Integer
+  --
+  + marquerEnvoye() : void
+  + incrementerTentatives() : void
+}
+
+' Énumérations
+ENUM StatutMission {
+  BROUILLON
+  EN_COURS
+  EXCEPTIONNELLE
+  APPROUVEE
+  APPROUVEE_MANAGER
+  REFUSEE
+  REFUSEE_CO2
+  REFUSEE_COLLAB
+  ANNULEE
+}
+
+ENUM MoyenTransport {
+  VEHICULE_ELECTRIQUE
+  TRAIN
+  AVION
+}
+
+' Relations
+Collaborateur ||--o{ DemandeMission : "demande"
+Collaborateur ||--o{ QuotaCollaborateur : "possède"
+DemandeMission ||--o{ HistoriqueMission : "trace"
+DemandeMission ||--o{ NotificationEmail : "génère"
+DemandeMission --> StatutMission
+DemandeMission --> MoyenTransport
+
+' Notes explicatives
+note right of DemandeMission
+  Entité centrale du système
+  - Gère les 4 versions d'évolution
+  - Traçabilité complète des décisions
+  - Calculs automatiques CO2
+  - Gestion multi-devises
+end note
+
+note right of Collaborateur
+  Gestion des quotas annuels :
+  - 25 jours mission/an
+  - 1 tonne CO2 équivalent/an
+  - Reset automatique en janvier
+end note
+
+note left of HistoriqueMission
+  Traçabilité complète :
+  - Toutes les modifications
+  - Actions utilisateurs
+  - Calculs automatiques
+  - Conformité audit
+end note
+
+note bottom of ParametresSysteme
+  Configuration système :
+  - Quotas par défaut
+  - Taux CO2 par transport
+  - URLs APIs externes
+  - Paramètres notifications
+end note
+
+@enduml 

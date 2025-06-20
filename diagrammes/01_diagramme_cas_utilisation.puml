@@ -1,0 +1,100 @@
+@startuml DiagrammeCasUtilisation_GardensNoLife
+title Diagramme de Cas d'Utilisation - Système de Gestion des Missions GardensNoLife
+
+left to right direction
+
+actor "Collaborateur" as COLLAB
+actor "Manager" as MANAGER 
+actor "Service RH" as RH
+actor "Système" as SYSTEM
+
+package "Gestion des Missions V4" {
+  
+  package "Processus de Demande" {
+    usecase "Saisir demande mission" as UC1
+    usecase "Saisir avance frais" as UC1b
+    usecase "Suivre mes demandes" as UC2
+    usecase "Annuler demande" as UC3
+    usecase "Confirmer mission finale" as UC4
+  }
+  
+  package "Validation Manager" {
+    usecase "Étudier demande" as UC5
+    usecase "Valider/Refuser mission" as UC6
+    usecase "Réétudier en cas de désaccord" as UC7
+  }
+  
+  package "Gestion RH" {
+    usecase "Analyser opportunité" as UC8
+    usecase "Gérer quotas jours mission" as UC9
+    usecase "Modifier avance frais" as UC10
+    usecase "Valider demande exceptionnelle" as UC11
+    usecase "Consulter toutes demandes" as UC12
+  }
+  
+  package "Automatisations Système" {
+    usecase "Vérifier solde jours" as UC13
+    usecase "Calculer empreinte CO2" as UC14
+    usecase "Gérer taux de change" as UC15
+    usecase "Convertir en monnaie locale" as UC16
+    usecase "Notifier collaborateur" as UC17
+    usecase "Déduire jours mission" as UC18
+    usecase "Appeler API ADEME" as UC19
+  }
+}
+
+' Relations Collaborateur
+COLLAB --> UC1
+COLLAB --> UC1b
+COLLAB --> UC2
+COLLAB --> UC3
+COLLAB --> UC4
+
+' Relations Manager
+MANAGER --> UC5
+MANAGER --> UC6
+MANAGER --> UC7
+
+' Relations Service RH
+RH --> UC8
+RH --> UC9
+RH --> UC10
+RH --> UC11
+RH --> UC12
+
+' Relations Système
+SYSTEM --> UC13
+SYSTEM --> UC14
+SYSTEM --> UC15
+SYSTEM --> UC16
+SYSTEM --> UC17
+SYSTEM --> UC18
+SYSTEM --> UC19
+
+' Relations d'inclusion et extension
+UC1 ..> UC13 : <<include>>
+UC1 ..> UC14 : <<include>>
+UC8 ..> UC15 : <<include>>
+UC15 ..> UC16 : <<include>>
+UC6 ..> UC17 : <<include>>
+UC14 ..> UC19 : <<include>>
+UC4 ..> UC18 : <<include>>
+
+' Relations d'extension
+UC13 ..> UC11 : <<extend>>\n[solde insuffisant]
+UC14 ..> UC17 : <<extend>>\n[quota CO2 dépassé]
+
+note right of UC14
+  Calcul selon distance :
+  - < 200km : Véhicule électrique
+  - > 700km : Avion
+  - 200-700km : Train
+end note
+
+note right of UC9
+  Contraintes :
+  - 25 jours max/an
+  - 1 tonne CO2 max/an
+end note
+
+@enduml 

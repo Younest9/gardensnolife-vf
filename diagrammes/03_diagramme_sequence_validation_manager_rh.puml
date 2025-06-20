@@ -1,0 +1,150 @@
+@startuml SequenceValidationManagerRH_GardensNoLife
+title Diagramme de Séquence - Validation Manager et Service RH
+
+actor "Manager" as MANAGER
+actor "Service RH" as RH
+actor "Collaborateur" as COLLAB
+participant "Interface Manager" as MGR_UI
+participant "Interface RH" as RH_UI
+participant "Interface Collab" as COLLAB_UI
+participant "Bonita Engine" as ENGINE
+participant "Service Mission" as MISSION_SVC
+participant "API Taux Change" as EXCHANGE_API
+participant "Service Notification" as NOTIF_SVC
+participant "Base de Données" as DB
+
+== Phase 1: Validation Manager ==
+
+MANAGER -> MGR_UI : Accéder tâche validation
+activate MGR_UI
+
+MGR_UI -> ENGINE : Récupérer demande mission
+activate ENGINE
+
+ENGINE -> MISSION_SVC : GET détails mission
+activate MISSION_SVC
+
+MISSION_SVC -> DB : SELECT mission + données CO2
+activate DB
+DB --> MISSION_SVC : Données complètes mission
+deactivate DB
+
+MISSION_SVC --> ENGINE : Détails mission
+ENGINE --> MGR_UI : Affichage demande + empreinte CO2
+
+MANAGER -> MGR_UI : Valider/Refuser + Commentaire
+MGR_UI -> ENGINE : Soumettre décision Manager
+
+ENGINE -> MISSION_SVC : Enregistrer décision Manager
+MISSION_SVC -> DB : UPDATE decisionManager = true/false
+activate DB
+DB --> MISSION_SVC : Confirmation
+deactivate DB
+
+== Phase 2: Validation RH (en parallèle) ==
+
+par Processus RH simultané
+    RH -> RH_UI : Accéder tâche analyse opportunité
+    activate RH_UI
+    
+    RH_UI -> ENGINE : Récupérer demande mission
+    ENGINE -> MISSION_SVC : GET détails mission
+    MISSION_SVC --> ENGINE : Détails mission
+    ENGINE --> RH_UI : Affichage demande
+    
+    RH -> RH_UI : Analyser opportunité + Modifier avance frais
+    RH_UI -> ENGINE : Soumettre décision RH + nouvelle avance
+    
+    ENGINE -> MISSION_SVC : Enregistrer décision RH
+    MISSION_SVC -> DB : UPDATE decisionRH + avanceFraisModifiee
+    activate DB
+    DB --> MISSION_SVC : Confirmation
+    deactivate DB
+    
+    deactivate RH_UI
+end
+
+== Phase 3: Synchronisation et calcul taux change ==
+
+ENGINE -> MISSION_SVC : Comparer décisions Manager/RH
+activate MISSION_SVC
+
+alt Décisions identiques (toutes deux OUI)
+    MISSION_SVC -> EXCHANGE_API : GET taux de change EUR → devise locale
+    activate EXCHANGE_API
+    EXCHANGE_API --> MISSION_SVC : Taux actuel
+    deactivate EXCHANGE_API
+    
+    MISSION_SVC -> DB : UPDATE tauxChange + monnaieLocale
+    activate DB
+    DB --> MISSION_SVC : Confirmation
+    deactivate DB
+    
+    ENGINE -> NOTIF_SVC : Envoyer proposition finale au collaborateur
+    activate NOTIF_SVC
+    
+    NOTIF_SVC -> COLLAB_UI : Email + notification in-app
+    activate COLLAB_UI
+    NOTIF_SVC -> DB : LOG notification envoyée
+    
+    COLLAB_UI --> COLLAB : Proposition avec détails modifiés
+    
+    == Phase 4: Réponse finale collaborateur ==
+    
+    COLLAB -> COLLAB_UI : Accepter/Refuser proposition finale
+    COLLAB_UI -> ENGINE : Réponse collaborateur
+    
+    alt Collaborateur accepte
+        ENGINE -> MISSION_SVC : Finaliser mission
+        MISSION_SVC -> DB : UPDATE statut = 'APPROUVEE'
+        activate DB
+        DB --> MISSION_SVC : Confirmation
+        deactivate DB
+        
+        ENGINE -> MISSION_SVC : Déduire jours mission du solde
+        MISSION_SVC -> DB : UPDATE soldeJoursMission -= duréeMission
+        activate DB
+        DB --> MISSION_SVC : Nouveau solde
+        deactivate DB
+        
+        ENGINE -> NOTIF_SVC : Confirmer mission approuvée définitivement
+        NOTIF_SVC --> COLLAB : Confirmation finale + détails mission
+        
+    else Collaborateur refuse
+        ENGINE -> MISSION_SVC : Annuler mission
+        MISSION_SVC -> DB : UPDATE statut = 'REFUSEE_COLLAB'
+        activate DB
+        DB --> MISSION_SVC : Confirmation
+        deactivate DB
+        
+        ENGINE -> NOTIF_SVC : Confirmer mission refusée par collaborateur
+        NOTIF_SVC --> COLLAB : Confirmation annulation
+    end
+    
+    deactivate COLLAB_UI
+    deactivate NOTIF_SVC
+
+else Décisions différentes (Manager OUI, RH NON ou inverse)
+    note right: Manager a le dernier mot selon règles métier
+    
+    ENGINE -> MGR_UI : Nouvelle tâche validation finale (information désaccord)
+    MGR_UI --> MANAGER : Décision finale requise
+    
+    MANAGER -> MGR_UI : Confirmer décision finale
+    MGR_UI -> ENGINE : Décision finale Manager
+    
+    ENGINE -> MISSION_SVC : Appliquer décision finale
+    alt Manager maintient OUI
+        MISSION_SVC -> DB : UPDATE statut = 'APPROUVEE_MANAGER'
+        ENGINE -> NOTIF_SVC : Notifier mission approuvée (décision Manager)
+    else Manager change pour NON
+        MISSION_SVC -> DB : UPDATE statut = 'REFUSEE'
+        ENGINE -> NOTIF_SVC : Notifier mission refusée
+    end
+end
+
+deactivate MISSION_SVC
+deactivate ENGINE
+deactivate MGR_UI
+
+@enduml 

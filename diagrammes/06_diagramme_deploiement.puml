@@ -1,0 +1,125 @@
+@startuml DiagrammeDeploiement_GardensNoLife
+title Diagramme de Déploiement - Architecture Bonita GardensNoLife
+
+cloud "Internet" {
+  actor [Collaborateurs] as collab
+  actor [Managers] as managers
+  actor [Service RH] as rh
+}
+
+node "Serveur Bonita" as bonita_server {
+  component [Bonita Community 2024.3] as bonita
+  component [Apache Tomcat 9] as tomcat
+  component [OpenJDK 11] as jdk
+  
+  artifact "gardensnolife-v4.war" as app_war
+  
+  package "Processus BPMN" {
+    component [V1 - Demande de base] as v1_process
+    component [V2 - Contraintes admin] as v2_process
+    component [V3 - Gestion défraiements] as v3_process
+    component [V4 - Empreinte carbone] as v4_process
+  }
+  
+  package "Formulaires Web" {
+    component [SaisirDemandeMission] as form_saisie
+    component [EtudierDemande] as form_etude
+    component [AnalyserOpportunite] as form_analyse
+    component [EvaluerDemandeExceptionnelle] as form_eval
+    component [DashboardCollaborateur] as dash_collab
+    component [DashboardRH] as dash_rh
+  }
+  
+  package "Connecteurs" {
+    component [Connecteur Email] as email_connector
+    component [Connecteur ADEME API] as ademe_connector
+    component [Connecteur Taux Change] as exchange_connector
+  }
+}
+
+node "Base de Données H2" as h2_db {
+  database [H2 Database] as h2
+  note bottom of h2
+    Base de données intégrée Bonita :
+    - Tables métier (BDM)
+    - Données processus
+    - Historique des instances
+    - Configuration utilisateurs
+  end note
+}
+
+cloud "APIs Externes" as external_apis {
+  component [API ADEME] as ademe_api
+  note bottom of ademe_api
+    impactco2.fr
+    Clé : 51198b04-e272-40d0-b80a-6971d5c5c364
+  end note
+  
+  component [API Taux Change] as exchange_api
+  note bottom of exchange_api
+    Conversion EUR vers devises
+  end note
+  
+  component [Service SMTP] as smtp
+  note bottom of smtp
+    Notifications email
+  end note
+}
+
+' Connexions utilisateurs
+collab --> bonita : HTTPS
+managers --> bonita : HTTPS
+rh --> bonita : HTTPS
+
+' Connexions internes Bonita
+bonita --> h2 : JDBC
+bonita --> tomcat : Deploy
+tomcat --> jdk : Runtime
+
+' Processus et formulaires
+v1_process --> form_saisie : Utilise
+v1_process --> form_etude : Utilise
+v1_process --> form_analyse : Utilise
+
+v2_process --> form_eval : Utilise
+v3_process --> form_saisie : Étend
+v4_process --> form_saisie : Étend
+
+' Dashboards
+dash_collab --> bonita : API REST
+dash_rh --> bonita : API REST
+
+' Connecteurs externes
+email_connector --> smtp : SMTP
+ademe_connector --> ademe_api : HTTPS/REST
+exchange_connector --> exchange_api : HTTPS/REST
+
+' Relations connecteurs-processus
+v1_process --> email_connector : Notifications
+v4_process --> ademe_connector : Calcul CO2
+v3_process --> exchange_connector : Conversion devise
+
+note as deployment_note
+Configuration Bonita Community :
+────────────────────────────────
+• Serveur : Tomcat 9 intégré
+• JVM : OpenJDK 11
+• Base de données : H2 (développement)
+• Mémoire : 4GB heap recommandé
+• Stockage : 10GB minimum
+
+Processus déployés :
+───────────────────
+• V1 : Validation Manager/RH
+• V2 : Contraintes 25 jours/an
+• V3 : Gestion défraiements
+• V4 : Quota CO2 1 tonne/an
+
+APIs externes intégrées :
+────────────────────────
+• ADEME : Calculs empreinte carbone
+• Taux change : Conversion monétaire
+• SMTP : Notifications automatiques
+end note
+
+@enduml 

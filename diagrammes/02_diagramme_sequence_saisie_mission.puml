@@ -1,0 +1,99 @@
+@startuml SequenceSaisieDemandeMission_GardensNoLife
+title Diagramme de Séquence - Saisie et Validation Demande Mission (V4)
+
+actor "Collaborateur" as COLLAB
+participant "Formulaire Web\nBonita" as FORM
+participant "Bonita Engine" as ENGINE
+participant "Service Mission" as MISSION_SVC
+participant "Service Quota" as QUOTA_SVC
+participant "API ADEME CO2" as ADEME
+participant "Base de Données" as DB
+
+== Phase 1: Saisie de la demande ==
+
+COLLAB -> FORM : Saisir demande mission + avance frais
+activate FORM
+
+FORM -> ENGINE : Démarrer processus V4
+activate ENGINE
+
+ENGINE -> MISSION_SVC : Créer nouvelle demande
+activate MISSION_SVC
+
+MISSION_SVC -> DB : INSERT demande mission
+activate DB
+DB --> MISSION_SVC : ID demande créée
+deactivate DB
+
+== Phase 2: Vérifications automatiques ==
+
+ENGINE -> QUOTA_SVC : Vérifier solde jours collaborateur
+activate QUOTA_SVC
+
+QUOTA_SVC -> DB : SELECT solde jours restants
+activate DB
+DB --> QUOTA_SVC : Solde actuel (ex: 15 jours)
+deactivate DB
+
+alt Solde jours insuffisant
+    QUOTA_SVC --> ENGINE : Solde insuffisant
+    ENGINE -> MISSION_SVC : Marquer demande exceptionnelle
+    MISSION_SVC -> DB : UPDATE statut = 'EXCEPTIONNELLE'
+    note right: Processus continue vers RH\npour validation préalable
+else Solde jours suffisant
+    QUOTA_SVC --> ENGINE : Solde OK
+end
+
+deactivate QUOTA_SVC
+
+== Phase 3: Calcul empreinte CO2 ==
+
+ENGINE -> MISSION_SVC : Calculer empreinte CO2
+MISSION_SVC -> MISSION_SVC : Calculer distance Toulouse ↔ Destination
+
+alt Distance < 200km
+    MISSION_SVC -> MISSION_SVC : Véhicule électrique (0.05 kg/km)
+else Distance > 700km
+    MISSION_SVC -> ADEME : GET calcul CO2 avion\n(distance, nb passagers)
+    activate ADEME
+    ADEME --> MISSION_SVC : Empreinte CO2 avion
+    deactivate ADEME
+else Distance 200-700km
+    MISSION_SVC -> MISSION_SVC : Train (0.03 kg/km)
+end
+
+MISSION_SVC -> DB : UPDATE empreinte CO2 calculée
+activate DB
+DB --> MISSION_SVC : Confirmation
+deactivate DB
+
+MISSION_SVC -> QUOTA_SVC : Vérifier quota CO2 annuel
+activate QUOTA_SVC
+QUOTA_SVC -> DB : SELECT quota CO2 utilisé
+activate DB
+DB --> QUOTA_SVC : Quota actuel utilisé
+deactivate DB
+
+alt Quota CO2 dépassé
+    QUOTA_SVC --> ENGINE : Quota CO2 dépassé
+    ENGINE -> MISSION_SVC : Refuser automatiquement
+    MISSION_SVC -> DB : UPDATE statut = 'REFUSEE_CO2'
+    ENGINE -> FORM : Afficher refus automatique
+    FORM --> COLLAB : Mission refusée (quota CO2)
+    note right: Fin du processus\nRefus automatique
+else Quota CO2 OK
+    QUOTA_SVC --> ENGINE : Quota CO2 OK
+    ENGINE -> MISSION_SVC : Continuer processus
+    MISSION_SVC -> DB : UPDATE statut = 'EN_COURS'
+    
+    ENGINE -> FORM : Rediriger vers validation Manager
+    FORM --> COLLAB : Demande transmise au Manager
+    note right: Processus continue\nvers validation humaine
+end
+
+deactivate QUOTA_SVC
+deactivate MISSION_SVC
+deactivate ENGINE
+deactivate FORM
+
+@enduml 

@@ -1,0 +1,133 @@
+@startuml ArchitectureLogicielleComposants_GardensNoLife
+title Architecture Logicielle - Diagramme de Composants GardensNoLife
+
+!define COMP component
+!define INTERFACE interface
+!define DATABASE database
+
+package "Couche Présentation" as web_layer {
+    COMP [Formulaires Web Bonita] as forms_bonita
+    COMP [Portail Collaborateur] as portal_collab
+    COMP [Interface Manager] as portal_manager
+    COMP [Interface RH] as portal_rh
+    
+    note bottom of forms_bonita
+      Interfaces utilisateurs
+      pour saisie et validation
+    end note
+}
+
+package "Moteur de Processus" as engine_layer {
+    COMP [Bonita Engine] as bonita_engine
+    COMP [Gestionnaire de Processus] as process_manager
+    COMP [Gestionnaire de Tâches] as task_manager
+    COMP [Moteur de Workflow] as workflow_engine
+    
+    note bottom of bonita_engine
+      Moteur d'exécution
+      des processus BPMN
+    end note
+}
+
+package "Couche Logique Métier" as business_layer {
+    COMP [Service Missions] as mission_service
+    COMP [Service Quotas] as quota_service
+    COMP [Service CO2] as co2_service
+    COMP [Service Notifications] as notification_service
+    COMP [Service Validation] as validation_service
+    COMP [Service Devises] as currency_service
+    
+    note bottom of mission_service
+      Logique métier des
+      demandes de mission
+    end note
+}
+
+package "Couche Intégration" as integration_layer {
+    COMP [Connecteur ADEME] as ademe_connector
+    COMP [Connecteur Taux Change] as exchange_connector
+    COMP [Connecteur Email] as email_connector
+    COMP [Connecteur RH] as hr_connector
+    COMP [Service Géolocalisation] as geo_service
+    
+    note bottom of ademe_connector
+      Intégration API ADEME
+      pour calculs CO2
+    end note
+}
+
+package "Couche Données" as data_layer {
+    COMP [BDM Bonita] as bdm_bonita
+    COMP [Couche DAO] as dao_layer
+    COMP [Service Cache] as cache_service
+    COMP [Service Audit] as audit_service
+    
+    note bottom of bdm_bonita
+      Modèle de données
+      métier Bonita
+    end note
+}
+
+cloud "Services Externes" as external_services {
+    COMP [API ADEME] as ademe_api
+    COMP [API Taux Change] as exchange_api
+    COMP [Service SMTP] as smtp_service
+    COMP [API Géolocalisation] as geo_api
+}
+
+node "Stockage de Données" as data_storage {
+    DATABASE [PostgreSQL] as postgres_db
+    DATABASE [Redis Cache] as redis_cache
+    folder [Stockage Fichiers] as file_storage
+}
+
+' Relations Couche Présentation → Moteur
+forms_bonita --> bonita_engine : REST API
+portal_collab --> bonita_engine : REST API
+portal_manager --> bonita_engine : REST API
+portal_rh --> bonita_engine : REST API
+
+' Relations Moteur → Logique Métier
+bonita_engine --> process_manager : Internal API
+process_manager --> task_manager : Internal API
+task_manager --> mission_service : Service Call
+workflow_engine --> validation_service : Service Call
+
+' Relations Logique Métier
+mission_service --> quota_service : Service Call
+mission_service --> co2_service : Service Call
+mission_service --> currency_service : Service Call
+validation_service --> notification_service : Service Call
+
+' Relations Intégration
+co2_service --> ademe_connector : HTTP/REST
+currency_service --> exchange_connector : HTTP/REST
+notification_service --> email_connector : SMTP
+quota_service --> hr_connector : HTTP/SOAP
+mission_service --> geo_service : Service Call
+
+' Relations Données
+mission_service --> bdm_bonita : JPA/Hibernate
+quota_service --> cache_service : Redis Protocol
+bdm_bonita --> dao_layer : JPA
+dao_layer --> postgres_db : JDBC
+cache_service --> redis_cache : Redis Protocol
+audit_service --> file_storage : File I/O
+
+' Relations Externes
+ademe_connector --> ademe_api : HTTPS/REST
+exchange_connector --> exchange_api : HTTPS/REST
+email_connector --> smtp_service : SMTP/TLS
+geo_service --> geo_api : HTTPS/REST
+
+note as architecture_note
+Architecture en couches respectant :
+• Séparation des responsabilités
+• Principe d'inversion de dépendance
+• Scalabilité horizontale
+• Intégrations découplées
+• Cache pour performance
+• Traçabilité complète
+end note
+
+@enduml 
